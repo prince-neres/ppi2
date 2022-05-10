@@ -9,4 +9,4 @@ Repositório para o projeto da disciplina de Programação para Internet 2
 ## Como Executar:
 1. `python3 manage.py makemigrations`
 2. `python3 manage.py migrate`
-3. `python3 manage.py runserver
+3. `python3 manage.py runserver`
