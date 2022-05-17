@@ -10,7 +10,7 @@
           <ul>
               {% for perfil in perfis %}
                   <li>
-                    <a href="{% url 'exibir' perfil.id%}">{{ perfil.nome }}</a> / {{ perfil.email }}
+                    <a href="{% url 'exibir' perfil.id %}">{{ perfil.nome }}</a> / {{ perfil.email }}
                   </li>
               {% endfor %}
           </ul>
@@ -23,13 +23,16 @@
         {% with total_de_convites=perfil_logado.convites_recebidos.count %}
           {% if total_de_convites %}
               <div class="panel-heading">
-                  <strong>Você tem {{ total_de_convites }} convite{{ total_de_convites|pluralize }} aguardando aprovação</strong>
+                  <strong>
+                      Você tem {{ total_de_convites }} 
+                      convite{{ total_de_convites|pluralize }} aguardando aprovação
+                    </strong>
               </div>
               <ul class="list-group">
                   {% for convite in perfil_logado.convites_recebidos.all %}
                       <li class="list-group-item">
                               {{ convite.solicitante.nome }} 
-                              <a href="#" class="pull-right">aceitar</a>
+                              <a href="{% url 'aceitar' convite.id %}" class="pull-right">aceitar</a>
                       </li>
                   {% endfor %}
               </ul>
@@ -40,5 +43,23 @@
           {% endif %}
         {% endwith %}
     </div>
+    <div class="panel panel-default">
+        {% with total_de_contatos=perfil_logado.contatos.count %}
+            {% if total_de_contatos %}
+                <div class="panel-heading">
+                        <strong>Você tem {{total_de_contatos}} contato{{ total_de_contatos|pluralize }}</strong>
+                </div>
+                <ul class="list-group">
+                    {% for contato in perfil_logado.contatos.all %}
+                        <a href="{% url 'exibir' contato.id %}" class="list-group-item">{{ contato.nome }}</a>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="panel-body">
+                    <p>Você não possui contatos no momento :(</p>
+                </div>
+            {% endif %}
+        {% endwith %}
+      </div>
 </div>
 {% endblock %}
